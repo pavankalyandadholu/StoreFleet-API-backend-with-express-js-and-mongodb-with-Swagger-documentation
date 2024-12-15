@@ -11,7 +11,7 @@ const swaggerOptions = {
     },
     servers: [
         {
-          url: `http://localhost:3000`,
+          url: `https://store-fleet-api.vercel.app`,
           description: 'StoreFleet API DOCUMENTATION',
         },
     ],
