@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
+import cors from 'cors'
 import productRoutes from "./src/product/routes/product.routes.js";
 import {
   errorHandlerMiddleware,
@@ -15,6 +16,7 @@ import { setupSwagger } from "./swagger.js";
 dotenv.config({ path: configPath });
 
 const app = express();
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 setupSwagger(app);
