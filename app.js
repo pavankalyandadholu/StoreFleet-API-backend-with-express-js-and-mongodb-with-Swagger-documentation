@@ -13,7 +13,8 @@ import orderRoutes from "./src/order/routes/order.routes.js";
 
 const configPath = path.resolve("backend", "config", "uat.env");
 import { setupSwagger } from "./swagger.js";
-dotenv.config({ path: configPath });
+// dotenv.config({ path: configPath });
+dotenv.config();
 
 const app = express();
 app.use(cors())
