@@ -434,36 +434,122 @@ const swaggerOptions = {
           }
         }
       },
-      "/api/storefleet/product/rate/{id}": {
-        "put": {
-          "tags": ["Product"],
-          "summary": "Rate a Product",
-          "description": "Allows an authenticated user to rate a product.",
-          "security": [ { "bearerAuth": [] } ],
-          "parameters": [
-            { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Product ID." }
-          ],
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
+      
+        "/api/storefleet/product/rate/{id}": {
+          "put": {
+            "tags": ["Product"],
+            "summary": "Rate a Product",
+            "description": "Allows an authenticated user to rate a product. If the user has already rated the product, the existing rating will be updated.",
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ],
+            "parameters": [
+              {
+                "name": "id",
+                "in": "path",
+                "required": true,
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "rating": { "type": "number" },
-                    "comment": { "type": "string" }
-                  },
-                  "required": ["rating"]
+                  "type": "string"
+                },
+                "description": "The ID of the product to be rated."
+              }
+            ],
+            "requestBody": {
+              "required": true,
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "rating": {
+                        "type": "number",
+                        "description": "The rating value for the product.",
+                        "example": 4.5
+                      },
+                      "comment": {
+                        "type": "string",
+                        "description": "Optional comment about the product.",
+                        "example": "Great product, highly recommend!"
+                      }
+                    },
+                    "required": ["rating"]
+                  }
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "Rating added or updated successfully.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Rating added or updated successfully."
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "productId": {
+                              "type": "string",
+                              "example": "61df8d0a9f1b1c0011c8b456"
+                            },
+                            "rating": {
+                              "type": "number",
+                              "example": 4.5
+                            },
+                            "comment": {
+                              "type": "string",
+                              "example": "Great product, highly recommend!"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Bad request or product not found.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string",
+                          "example": "Invalid product ID or rating value."
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "401": {
+                "description": "Unauthorized access.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string",
+                          "example": "Authentication token is missing or invalid."
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
-          },
-          "responses": {
-            "201": { "description": "Rating added or updated successfully." },
-            "400": { "description": "Product not found or bad request." }
           }
         }
-      },
+      
+      ,
       "/api/storefleet/product/reviews/{id}": {
         "get": {
           "tags": ["Product"],
