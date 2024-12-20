@@ -22,7 +22,7 @@ export const createNewUser = async (req, res, next) => {
     // await sendToken(newUser, res, 200);
 
     // Implement sendWelcomeEmail function to send welcome message
-    await sendWelcomeEmail(newUser);
+    // await sendWelcomeEmail(newUser);
     res.status(201).send("Registration Successfull! ")
 
   } catch (err) {

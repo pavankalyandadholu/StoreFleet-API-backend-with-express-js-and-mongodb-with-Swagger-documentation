@@ -8,8 +8,15 @@ export const sendToken = async (user, res, statusCode) => {
     ),
     httpOnly: true,
   };
+   // Convert the saved user document to a plain object
+   const userWithoutPassword = user.toObject();
+
+   // Remove the password from the response
+   delete userWithoutPassword.password;
+
+    
   res
     .status(statusCode)
     .cookie("token", token, cookieOptions)
-    .json({ success: true, user, token });
+    .json({ success: true, user:userWithoutPassword, token });
 };

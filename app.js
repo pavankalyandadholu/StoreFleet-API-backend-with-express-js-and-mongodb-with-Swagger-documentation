@@ -25,7 +25,12 @@ app.use("/api/storefleet/product", productRoutes);
 app.use("/api/storefleet/user", userRoutes);
 app.use("/api/storefleet/order", orderRoutes);
 app.get('/',(req,res)=>{
-  res.status(200).send("Welcome to StoreFleet API's")
+  res.status(200).send(`
+    <div>
+    <h2>Wellcome to StoreFleet Api's</h2>
+    <button><a href="/api-docs">View Swagger Documentation</a> </button>
+    </div>
+    `)
 })
 // errorHandlerMiddleware
 app.use(errorHandlerMiddleware);
